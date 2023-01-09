@@ -1,0 +1,400 @@
+CREATING A SERVER
+*****************
+1) require http and store it in a constant http
+	eg: const http = require('http');
+
+2) create a server with the http and store it in a constant server
+	eg: const server = createServer();
+
+3) create an arrow function in the createServer to request and respond to and from the browser
+	eg: const server = createServer((req, res) => {
+		//Body...
+		//Requesting
+		console.log('Request made');
+	});
+
+4) be notified when a server is active and request has been made from the browser by:
+	eg: server.Listen(3000, localhost, () => {
+		Listen for request on port 3000
+	});
+
+5) To respond:
+	 res.setHeader('Content-Type', 'text/plain');
+	
+	 //Writing on the browser
+    	 res.write('hello, bril');
+	 // Ending response
+    	 res.end();
+
+LINKING FILE
+************
+1) require fs and store it in a constant fs
+	eg: const fs = require('fs');
+2) link the file
+	eg: fs.readFile('path', (err, data) => {
+        if (err) {
+            console.log(err);
+        } else {
+            res.write(data);
+            res.end();
+        }
+    });
+
+STATUS CODE
+***********
+1) 200 - OK
+2) 301 - Resource moved
+3) 404 - Not found
+4) 500 - Internal server error
+
+# 100 Range - information responses
+# 200 Range - success codes
+# 300 Range - codes for redirects
+# 400 Range - user or client error codes
+# 500 Range - server error codes
+
+WHAT TO INSTALL IN YOUR PROJECT
+*******************************
+website: npmjs.com/package
+To install the node_modules = npm install 
+-Global package = npm -g nodemon (install once)
+	After installing, use 'nodemon server' instead of 'node server'
+	Incase a notice comes that running scripts is disabled, follow these steps
+	  --Start Windows PowerShell with the "Run as Administrator" option. Only 
+	    members of the Administrators group on the computer can change the 
+	    execution policy.
+	  --Enable running unsigned scripts by entering:'set-executionpolicy remotesigned'
+
+-In every project = json-package =  npm init
+	A file will be created with the name "package.json"
+	You should also have a file with the name "package-lock.json"
+NB: "package.json" will keep track of our project dependencies ie packages insatlled
+    both locally and globally.
+
+-Local packages = ~) lodash library = npm i --save lodas
+		     The "--save" saves the library to the local dependant ie "package.json"
+		     Before you can use the library, you need to require it 
+			eg: const _ = require('lodash');
+		     Read more about the lodash methods. website: lodash.com/docs/4.17.15
+
+INSTALLATION OF EXPRESS PACKAGE
+*******************************
+Express is a framework that helps us to easily manage our routing request, server side logic and 
+respond in much much much more easy way and makes our code easier to read and update and more.
+To install = npm install express
+
+CREATING AN EXPRESS APP
+***********************
+1) Create a Js file eg: "app.js"
+2) Require the express package in the file eg: const express = require('express');
+3) Set up an express app eg: const app = express();
+4) Listen for requests eg: app.listen(3000);
+5) Responding to url eg: app.get(url,(req, res) => {
+		res.send('<h1>Bankah did it</h1>');
+	});
+
+ROUTING & HTML {Express}
+************************
+res.sendFile('./views/index.html', {root: __dirname});
+
+REDIRECTS & 404 PAGES {Express}
+*******************************
+===Redirects : app.get('/about-us', (req, res) => {
+    		res.redirect('/about');
+		});
+
+===404 : app.use((req, res) => {
+    	res.status(404).sendFile('./views/404.html', {root: __dirname}); 
+	});
+NB: The 404 Page should always be at the bottom in the file.
+
+VIEW ENGINES (EJS)
+******************
+For inputting dynamic data or content into our html page
+
+INSATALLATION OF EJS PACKAGE
+----------------------------
+Type = npm install ejs
+
+TO USE EJS AS YOUR VIEW ENGINE
+------------------------------
+app.set('view engine', 'ejs');
+
+CREATING AND EJS FILE
+---------------------
+1) new file with the extension 'ejs' eg: index.ejs
+
+PASSING DATA INTO VIEWS
+***********************
+1) <% %>
+2) Output in a ejs file use <%= %>
+
+INSERTING ANOTHER EJS INTO AN EJS FILE
+**************************************
+1) <%- ('./partials/head.ejs') %>
+	where; ('./partials/head.ejs') is the path in which
+	the file is located and the file name.
+
+MIDDLEWARE
+**********
+-It is a name for any code which runs on a server between getting
+ a request and sending a response
+-The use method is use to run middleware code. eg: app.use();
+
+FUNCTIONS OF MIDDLEWARE
+***********************
+1) Logger middleware to log details of every request
+2) Authentication check middleware for protected routes
+3) Middleware to parse JSON data from requests
+4) Return 404 pages
+
+MIDDLEWARE - USING NEXT()
+*************************
+-Terminating a middleware 
+	app.use((req, res, next) => {
+    		res.status(404).sendFile('./views/404.html', {root: __dirname}); 
+		next();
+	});
+
+3rd PARTY MIDDLEWARE
+********************
+1) Example: morgan ; npm install morgan
+2) Require the express package in the file eg: const morgan = require('morgan');
+
+MIDDLEWARE - STATIC FILES
+**************************
+-- app.use(express.static('public'));
+	The public has been made global such that all files in it can be accessed.
+
+
+MongoDB & Mongoose
+******************
+SQL			|			NoSQL
+			|				
+Tables			|			Collections
+Rows			|			Documents
+Columns			|			mongoDB
+
+HOW NoSQL WORKS
+***************
+--- Each Collection stores a particular Document
+--- Document is like a record in SQL
+
+User Collecton			|			Blog Collection
+				|				
+User document			|			Blog document
+User document			|			Blog document
+User document			|			Blog document
+
+--- Blog document can have ==========>{
+					"_id"     : Object(12345),
+					"title"   : "Opening Party",
+					"snippet" : "all about the...",
+					"body"    : "blah blah blah..."
+				      }
+
+--- We can save, delete and update documents from mongoDB
+
+MongoDB SETUP & ATLAS
+*********************
+--- mongodb.com/cloud/atlas
+
+Mongoose, Models & Schemas
+**************************
+--- Mongoose is an ODM library - Object Document Library
+--- Schemas defines the structure of a type of data / document
+	♦ Properties & property types
+
+User schema:				Blog Schema:
+   - name (string), required		   - title (string), required
+   - age (number)			   - snippet (string), required
+   - bio (string), required		   - body (string), required
+
+--- Models allow us to communicate with database collections
+
+	 --------------
+	 | Blog Model |
+	----------------
+	|	       |  get, save, delete, etc
+	|  Blog Schema |==========================> Database Blog Collection
+	|	       |
+	----------------
+
+NB: Schema is like a table in SQL and a Model contains the Schema
+
+INSTALLING MONGOOSE
+*******************
+1) npm install mongoose
+2) const mongoose = require('mongoose');
+
+
+
+*********************
+*connect to mongodb *
+*********************
+const dbURI = 'mongodb+srv://tony:tony@ninja.fb7g0hb.mongodb.net/?retryWrites=true&w=majority';
+mongoose.connect(dbURI, { userNewUrlParser: true, useUnifiedTopology: true})
+     .then((result) => console.log('connected to db'))
+     .catch((err) => console.log(err));
+
+		 ******
+		 * OR *
+		 ******
+
+async function connect() {
+    try {
+        await mongoose.connect(dbURI);
+        console.log("Connected to MongoDB");
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+connect();
+
+
+
+CREATING A MODULE FOR THE MongoDB
+*********************************
+1) Require the mongoose and store it in a constant
+	eg: const mongoose = require('mongoose');
+2) Create a schema (table) with the mongoose and store it in a constant
+	eg: const Schema = mongoose.Schema
+3) Create an instance of the Schema with its fields and records
+	const blogSchema = new Schema({
+	    title: {
+	        type: String,
+	        required: true
+	    },
+	    snippet: {
+	        type: String,
+	        required: true
+	    },
+	    body: {
+	        type: String,
+	        required: true
+	    }
+	}, { timestamps: true });
+
+	const Blog = mongoose.model('Blog', blogSchema);
+
+	// exporting this module so that it can be used elsewhere
+	module.exports = Blog;
+
+
+
+INTERACTING WITH MongoDB WITH MONGOOSE
+**************************************
+// mongoose and mongo sandbox routes - creating an instance of the blog
+app.get('./add-blog', (req, res) => {
+    const blog = new Blog({
+        title: 'Marvel',
+        snippet: 'The Black Adam',
+        body: 'This is the new movie popping out'
+    });
+
+    //saving it into the database
+    blog.save()
+        .then((result) => {
+            res.send(result)
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+});
+
+// Retrieving from the database
+app.get('/all-blogs', (req, res) => {
+    Blog.find()
+        .then((result) => {
+            res.send(result);
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+})
+
+// Retrieving a single blog
+app.get('/single-blog', (req, res) => {
+    Blog.findById('')
+        .then((result) => {
+            res.send(result);
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+})
+
+ROUTE PARAMETERS
+****************
+-- The variable parts of the route that may change value
+		eg: localhost:3000/blogs/:id
+		eg: localhost:3000/blogs/12345
+		eg: localhost:3000/blogs/50
+		eg: localhost:3000/blogs/hello
+
+EXPRESS ROUTER MVC
+******************
+* MVC stands for Model, View, Controller
+* MVC is a way of structuring our code & files
+* Keeps code more modular, reusable and easier to read
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('./partials/head.ejs') %>
+<style>
+    .ulabout {
+        color: #fff;
+        font-weight: bold;
+    }
+    img:hover {
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+    }
+</style>
+<body>
+
+    <%- include('./partials/nav.ejs') %> 
+
+    <div class="about content">
+        <h2><i>About Daily Blog</i></h2>
+        <h6>We are glad you chose our blog site. No dissappointing, We deliver <b><i>best of bests</i></b></h6>
+    </div>
+
+    <div class="w3-container">      
+        <div style="display: flex; align-items: center;">
+            <div class="w3-third">
+                <div class="w3-card">
+                  <img src="/1.jpg" style="width:90%" class="w3-hover-opacity">
+                  <div class="w3-container">
+                    <h4>Our Strength</h4>
+                  </div>
+                </div>
+            </div>
+            <div class="w3-third">
+                <div class="w3-card">
+                  <img src="/2.jpg" style="width:90%" class="w3-hover-grayscale">
+                  <div class="w3-container">
+                    <h4 style="text-align: center;">What We Can Do</h4>
+                  </div>
+                </div>
+            </div>
+            <div class="w3-third">
+                <div class="w3-card">
+                  <img src="/3.jpg" style="width:90%"  class="w3-hover-sepia">
+                  <div class="w3-container">
+                    <h4 style="text-align: right;">Our Bond</h4>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <%- include('./partials/footer.ejs') %>
+    
+</body>
+</html>

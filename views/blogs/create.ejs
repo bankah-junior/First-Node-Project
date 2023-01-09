@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../partials/head.ejs') %>
+<style>
+    body {
+        background-image: url('/sea.jpg');
+        background-position: center;
+        background-size: cover;
+        /* background: linear-gradient(#ff74a4 0%, #9f6ea3 100%); */
+    }
+    .ulnewblog {
+        color: #fff;
+        font-weight: bold;
+    }
+</style>
+<body>
+
+    <%- include('../partials/nav.ejs') %> 
+
+    <div class="create-blog content">
+        <form action="/blogs" method="post">
+            <label for="title">Blog title:</label>
+            <input type="text" id="title" required name="title">
+            <label for="snippet">Blog snippet:</label>
+            <input type="text" id="snippet" required name="snippet">
+            <label for="title">Blog body:</label>
+            <textarea id="body" required name="body"></textarea>
+            <button class="w3-btn w3-white w3-border w3-border-red w3-round-large">Submit</button>
+        </form>
+    </div>
+
+    <%- include('../partials/footer.ejs') %>
+    
+</body>
+</html>

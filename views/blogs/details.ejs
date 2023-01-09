@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../partials/head.ejs') %>
+<style>
+    .details.content {
+        margin-top: 18px;
+        position: relative;
+        top: 1rem;
+    }
+    .tooltiptext {
+    visibility: hidden;
+    width: 100px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: -10px;
+    margin-left: -25px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    }
+
+    .delete:hover .tooltiptext {
+        visibility: visible;
+        opacity: 1;
+    }
+
+    .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+    }
+
+    .wrapper{
+    display: flex;
+    font-family: 'Poppins', sans-serif;
+    justify-content: center;
+    padding: 8rem 0 3rem 0;
+    }
+    .wrapper .static-txt{
+    color: rgb(0, 0, 0, 0);
+    font-size: 60px;
+    font-weight: 900;
+    margin-right: 15px;
+    -webkit-text-stroke: 2px #000;
+    }
+    .wrapper .dynamic-txts{
+    margin-left: 15px;
+    height: 90px;
+    line-height: 90px;
+    overflow: hidden;
+    }
+    .dynamic-txts li{
+    list-style: none;
+    color: crimson;
+    font-size: 60px;
+    font-weight: 500;
+    position: relative;
+    top: 0;
+    animation: slide 12s steps(4) infinite;
+    }
+    @keyframes slide {
+    100%{
+        top: -360px;
+    }
+    }
+    .dynamic-txts li span{
+    position: relative;
+    margin: 5px 0;
+    line-height: 80px;
+    }
+    .dynamic-txts li span::after{
+    content: "";
+    position: absolute;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: #ffffff;
+    border-left: 2px solid crimson;
+    animation: typing 3s steps(10) infinite;
+    }
+    @keyframes typing {
+    40%, 60%{
+        left: calc(100% + 30px);
+    }
+    100%{
+        left: 0;
+    }
+    }
+</style>
+<body>
+
+    <%- include('../partials/nav.ejs') %> 
+
+    <div class="details content">
+        <h2>
+            <%= blog.title %>
+        </h2>
+        <div class="content">
+            <p style="font-size: 1.5rem; padding-right: 8rem; line-height: 35px;">
+                <i><%= blog.body %></i>
+            </p>
+        </div>
+
+        <!-- creating a custom of data and naming it doc -->
+        <a href="" class="delete" data-doc="<%= blog._id %>">
+            <img src="/bitbucket.png" alt="" style="width: 20px; height: 20px;">
+            <span class="tooltiptext">Delete</span>
+        </a>
+
+        <div class="wrapper">
+            <div class="static-txt">We Offer </div>
+            <ul class="dynamic-txts">
+              <li><span>Trend News</span></li>
+              <li><span>Quotes</span></li>
+              <li><span>Tips</span></li>
+              <li><span>Opportunities</span></li>
+            </ul>
+        </div>
+
+    </div>
+
+
+
+
+
+    <%- include('../partials/footer.ejs') %>
+
+    <script>
+        const trashcan = document.querySelector('a.delete');
+
+        trashcan.addEventListener('click', (e) => {
+            const endpoint = `/blogs/${trashcan.dataset.doc}`;
+
+            fetch(endpoint, {
+                method: 'DELETE'
+            })
+            .then((response) => response.json())
+            .then((data) => window.location.href = data.redirect)
+            .catch((err) => console.log(err));
+        })
+    </script>
+    
+</body>
+</html>

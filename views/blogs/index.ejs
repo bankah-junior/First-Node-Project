@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../partials/head.ejs') %>
+<style>
+    .ulblog {
+        color: #fff;
+        font-weight: bold;
+    }
+    body {
+        margin: 0;
+        padding: 0;
+        background-image: url('/yellow.jpg');
+        background-position: center;
+        background-size: cover;
+    }
+</style>
+<body>
+
+    <%- include('../partials/nav.ejs') %> 
+
+    <div class="blogs content">
+        <h2>All Blogs</h2>
+
+        <% if (blogs.length > 0) { %>
+            <% blogs.forEach(blog => { %>
+                <a href="/blogs/<%= blog._id %>" class="single">
+                    <h3 class="title"><%= blog.title %></h3>
+                    <p class="snippet"><%= blog.snippet %></p>
+                </a>
+
+            <% }) %>
+        <% } else { %>
+            <p>There are no blogs to display...</p>
+        <% } %>
+
+    </div>
+
+    <%- include('../partials/footer.ejs') %>
+    
+</body>
+</html>

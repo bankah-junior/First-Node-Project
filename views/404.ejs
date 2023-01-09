@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('./partials/head.ejs') %>
+<style>
+    #error-page {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    #error-page .content {
+        max-width: 600px;
+        text-align: center;
+    }
+
+    .content h2.header {
+        font-size: 18vw;
+        line-height: 1em;
+        position: relative;
+    }
+
+    .content h2.header::after {
+        position: absolute;
+        content: '404';
+        top: 0;
+        left: 0;
+        right: 0;
+        background: -webkit-repeating-linear-gradient(-45deg, #71b7e6, #69a6ce, #b98acc, #ee8176, #b98acc, #69a6ce, #9b59b6);
+        background-size: 400%;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.25);
+        animation: animate 10s ease-in-out  infinite ;
+    }
+
+    @keyframes animate {
+        0% {
+            background-position: 0 0;
+        }
+        25% {
+            background-position: 100% 0;
+        }
+        50% {
+            background-position: 100% 100%;
+        }
+        75% {
+            background-position: 0% 100%;
+        }
+        100% {
+            background-position: 0 0;
+        }
+    }
+
+    .content h4 {
+        font-size: 2em;
+        margin-bottom: 20px;
+        text-transform: uppercase;
+        color: #000;
+        max-width: 600px;
+        position: relative;
+    }
+
+    .content h4::after {
+        position: absolute;
+        content: "OOPS! Page Not Found";
+        top: 0;
+        left: 0;
+        right: 0;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.25);
+    }
+
+    .content p {
+        font-size: 1.2em;
+        color: #0d0d0d;
+    }
+</style>
+<body>
+
+    <%- include('./partials/nav.ejs') %>
+
+    <div class="not-found content">
+        <!-- OOPS, page not found :) -->
+
+        <div id="error-page">
+            <div class="content">
+                <h2 class="header" data-text="404">
+                    404
+                </h2>
+                <h4 data-text="OOPS! Page Not Found">
+                    OPPS! Page Not Found
+                </h4>
+                <p>
+                    Sorry, the page you're looking for doesn't exist. If you think 
+                    something is broken report a problem.
+                </p>
+            </div>
+        </div>
+
+    </div>
+
+    <%- include('./partials/footer.ejs') %>
+    
+</body>
+</html>
